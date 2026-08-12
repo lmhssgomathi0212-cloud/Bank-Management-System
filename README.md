@@ -29,3 +29,23 @@ def create_account(customer_name):
     print("Account created successfully!")
     print("Account ID:", next_id)
     next_id += 1
+def deposit(account_id, amount):
+    account = get_account(account_id)
+    if amount <= 0:
+        raise InvalidAmountError(
+            "Deposit amount must be greater than zero."
+        )
+    account.balance += amount
+    print("Deposit successful.")
+    print("Current balance: ₹", account.balance)
+def withdraw(account_id, amount):
+    account = get_account(account_id)
+    if amount <= 0:
+        raise InvalidAmountError(
+            "Withdrawal amount must be greater than zero."
+        )
+    if amount > account.balance:
+        raise InsufficientFundsError("Insufficient funds.")
+    account.balance -= amount
+    print("Withdrawal successful.")
+    print("Current balance: ₹", account.balance)
